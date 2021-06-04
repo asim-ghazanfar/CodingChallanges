@@ -1,0 +1,61 @@
+// Problem Statement : Remove Duplicates from string and arrange its letters in order.
+// For Example: if we have a string "bbaacceedd". System output should be "abcde"
+
+//---------------------------------------------------------------------------------------//
+
+// In this solution below the code first removes the duplicated from the string and then apply the sorting algorithm on it.
+
+//--------------------------------------------------------------------------------------//
+
+using System;
+namespace DuplicatesProblem
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Type the string to perform operations.");
+            string stringToAbuse = Console.ReadLine();
+            string result = StringManipulation(stringToAbuse);
+            Console.WriteLine(result);
+            Console.Read();
+        }
+        static string StringManipulation(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                return string.Empty;
+
+            // First we are going to filter the string
+            // Filtered string is getting only those entries which it does not contains.
+            string filteredString = "";
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (!filteredString.Contains(str[i]))
+                    filteredString = filteredString + str[i];
+            }
+
+            // The string is filtered now and does not contains any duplicates.
+            // Now we are going to sort the filtered list.
+            // Sorting algorithm is bubble sort. 
+            char[] sortedString = filteredString.ToCharArray(); // Converting string to char array as swaping would be easier
+            
+            for (int j = 0; j < sortedString.Length; j++)
+            {
+                for (int k = 0; k < sortedString.Length - j - 1; k++)
+                {
+                    if (sortedString[k] > sortedString[k+1])
+                    {
+                        char temp = sortedString[k];
+                        sortedString[k] = sortedString[k+1];
+                        sortedString[k+1] = temp;
+                    }
+                }
+            }
+            // We got the sorted list of letters in sortedString char array. 
+            // The the required manipulation is done on the string content.
+            // Now we'll be converting this char array into string and will return it.
+
+            return new string(sortedString);
+        }
+    }
+}
